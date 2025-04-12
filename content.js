@@ -1,12 +1,18 @@
-// ตรวจสอบว่า script ถูกเปิดใช้งานหรือไม่
-chrome.storage.local.get(['enabled', 'script'], function (data) {
-    if (data.enabled && data.script) {
-        try {
-            // ทำการเรียกใช้ script
-            eval(data.script);
-            console.log('Script Working');
-        } catch (error) {
-            console.error('Script Error:', error);
+// ตรวจสอบสถานะ enable ก่อนรัน script
+chrome.storage.local.get(['enabled'], function (data) {
+    if (data.enabled) {
+        // แจ้ง background script ให้ฉีด script
+        chrome.runtime.sendMessage({ action: "injectScript" });
+    }
+});
+
+// รับฟังข้อความจาก popup หรือ background
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    if (request.action === 'toggleScript') {
+        if (request.enabled) {
+            // แจ้ง background script ให้ฉีด script
+            chrome.runtime.sendMessage({ action: "injectScript" });
         }
+        sendResponse({ status: 'ok' });
     }
 });
