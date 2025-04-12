@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Script Enabler</title>
+    <style>
+      body {
+        width: 300px;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+      }
+      .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+      }
+      .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 34px;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+      input:checked + .slider {
+        background-color: #2196f3;
+      }
+      input:checked + .slider:before {
+        transform: translateX(26px);
+      }
+      .script-container {
+        margin-top: 20px;
+      }
+      .script-input {
+        width: 100%;
+        height: 100px;
+        margin-top: 10px;
+        font-family: monospace;
+      }
+      .button {
+        background-color: #2196f3;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Script Enabler</h2>
+
+    <div>
+      <label class="switch">
+        <input type="checkbox" id="scriptToggle" />
+        <span class="slider"></span>
+      </label>
+      <span id="statusText">Script Offline</span>
+    </div>
+
+    <div class="script-container">
+      <p>Fill Your JavaScript:</p>
+      <textarea
+        class="script-input"
+        id="scriptInput"
+        placeholder="JavaScript code here..."
+      ></textarea>
+      <button class="button" id="saveBtn">Save Script</button>
+      <button class="button" id="runBtn">Run In This Tab</button>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
